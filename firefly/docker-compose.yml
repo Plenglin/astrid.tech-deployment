@@ -32,6 +32,8 @@ services:
       - fireflyiii
     volumes:
       - ../../secrets/firefly/plaid.toml:/config/config.toml
+    networks:
+      - net
 
 networks:
   net:
