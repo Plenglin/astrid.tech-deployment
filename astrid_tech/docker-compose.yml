@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:13.1
     env_file:
-      - .env.prod
+      - ../../secrets/astrid_tech/.env.prod
     volumes:
       - ./data:/var/lib/postgresql/data
     restart: always
@@ -14,6 +14,7 @@ services:
 
   api:
     image: astridyu/astrid_tech_api:latest
+    hostname: astrid_tech
     depends_on:
       - db
     command: >
@@ -23,7 +24,7 @@ services:
         gunicorn astrid_tech.wsgi:application --bind 0.0.0.0:8001
       "
     env_file:
-      - .env.prod
+      - ../../secrets/astrid_tech/.env.prod
     environment:
       POSTGRES_HOST: db
       POSTGRES_PORT: "5432"
@@ -31,7 +32,7 @@ services:
       - "8001"
     volumes:
       - ./logs:/app/logs
-      - ../caddy/www/astrid_tech_api/static:/app/staticfiles/
+      - ../caddy/www/astrid_tech/static:/app/staticfiles/
     restart: always
     networks:
       - proxied

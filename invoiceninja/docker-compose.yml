@@ -1,33 +1,6 @@
 version: "3.7"
 
 services:
-  server:
-    image: caddy:alpine
-    restart: always
-    environment:
-      - APP_URL=https://localhost
-    volumes:
-      # Vhost configuration
-      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
-
-      # Configure your mounted directories, make sure the folder 'public' and 'storage'
-      # exist, before mounting them
-      - public:/var/www/app/public
-      - storage:/var/www/app/storage
-      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/app/public:/var/www/app/public:rw,delegated
-      # - ./docker/app/storage:/var/www/app/storage:rw,delegated
-    depends_on:
-      - app
-    # Run webserver nginx on port 80
-    # Feel free to modify depending what port is already occupied
-    ports:
-      - "80:80"
-      - "443:443"
-    networks:
-      - invoiceninja
-      - proxied
-
   app:
     image: invoiceninja/invoiceninja:5
     restart: always
@@ -47,17 +20,12 @@ services:
       - SNAPPDF_EXECUTABLE_PATH="/usr/bin/chromium-browser"
       - SNAPPDF_SKIP_DOWNLOAD=true
     volumes:
-      # Configure your mounted directories, make sure the folder 'public' and 'storage'
-      # exist, before mounting them
-      - public:/var/www/app/public
-      - storage:/var/www/app/storage
-      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/app/public:/var/www/app/public:rw,delegated
-      # - ./docker/app/storage:/var/www/app/storage:rw,delegated
+      - ../caddy/www/invoiceninja/public:/var/www/app/public:rw,delegated
+      - ../caddy/www/invoiceninja/storage:/var/www/app/storage:rw,delegated
     depends_on:
       - db
     networks:
-      - invoiceninja
+      - proxied
 
   db:
     image: mysql:5
@@ -68,11 +36,11 @@ services:
       - MYSQL_PASSWORD=ninja
       - MYSQL_DATABASE=ninja
     volumes:
-      - mysql-data:/var/lib/mysql:rw
+      # - mysql-data:/var/lib/mysql:rw
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/mysql/data:/var/lib/mysql:rw,delegated
+      - ./docker/mysql/data:/var/lib/mysql:rw,delegated
     networks:
-      - invoiceninja
+      - proxied
 
   # THIS IS ONLY A VALID CONFIGURATION FOR IN 4. DO NOT USE FOR IN 5.
   # cron:
@@ -93,13 +61,6 @@ services:
   #     EOF'
   #   networks:
   #     - invoiceninja
-
-volumes:
-  mysql-data:
-  public:
-  storage:
-  # This is needed for letting th cron run correctly
-  # logo:
 
 networks:
   invoiceninja:
