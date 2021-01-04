@@ -10,3 +10,10 @@ services:
     restart: always
     volumes:
       - ./data:/etc/openvpn
+    networks:
+      - vpn
+
+networks:
+  vpn:
+    external:
+      name: vpn

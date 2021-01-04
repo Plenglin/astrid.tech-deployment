@@ -5,10 +5,10 @@ https://dndwiki.astrid.tech {
 }
 
 # Firefly
-https://firefly.astrid.tech {
-    reverse_proxy * http://firefly:8080
-    encode zstd gzip
-}
+# https://firefly.astrid.tech {
+#     reverse_proxy * http://firefly:8080
+#     encode zstd gzip
+# }
 
 # astrid.tech backend
 https://api.astrid.tech {

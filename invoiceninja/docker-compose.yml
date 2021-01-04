@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     networks:
-      - proxied
+      - vpn
 
   db:
     image: mysql:5
@@ -39,7 +39,7 @@ services:
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       - ./docker/mysql/data:/var/lib/mysql:rw,delegated
     networks:
-      - proxied
+      - invoiceninja
 
   # THIS IS ONLY A VALID CONFIGURATION FOR IN 4. DO NOT USE FOR IN 5.
   # cron:
@@ -63,9 +63,9 @@ services:
 
 networks:
   invoiceninja:
-
-networks:
   proxied:
     external:
       name: proxied
-
+  vpn:
+    external:
+      name: vpn
