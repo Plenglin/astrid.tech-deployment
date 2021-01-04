@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  trilium:
+    image: zadam/trilium:0.45.7
+    hostname: trilium
+    restart: always
+    environment:
+      - TRILIUM_DATA_DIR=/data
+    expose:
+      - "8080"
+    volumes:
+      - ./data:/data
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied

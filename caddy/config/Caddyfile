@@ -19,6 +19,12 @@ https://api.astrid.tech {
     encode zstd gzip
 }
 
+# Trilium
+https://notes.astrid.tech {
+    reverse_proxy * http://trilium:8080
+    encode zstd gzip
+}
+
 # Invoiceninja
 #https://localhost:4002 {
 #    root * /var/www/invoiceninja/public
