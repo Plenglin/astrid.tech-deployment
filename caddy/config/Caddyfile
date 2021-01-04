@@ -1,17 +1,17 @@
 # DND Bookstack
-https://localhost {
+https://dndwiki.astrid.tech {
     reverse_proxy * dndbookstack
     encode zstd gzip
 }
 
 # Firefly
-https://localhost:4003 {
+https://firefly.astrid.tech {
     reverse_proxy * http://firefly:8080
     encode zstd gzip
 }
 
-# api.astrid.tech
-https://localhost:4001 {
+# astrid.tech backend
+https://api.astrid.tech {
     reverse_proxy /api/* http://astrid_tech:8001
     reverse_proxy /admin/* http://astrid_tech:8001
     root /static/* /var/www/astrid_tech/

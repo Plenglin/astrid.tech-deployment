@@ -3,6 +3,7 @@ services:
   bookstack:
     image: ghcr.io/linuxserver/bookstack
     hostname: dndbookstack
+    env_file: ../../secrets/dndbookstack/wiki.env
     environment:
       - PUID=1000
       - PGID=1000
@@ -10,7 +11,6 @@ services:
       - DB_HOST=bookstack_db
       - DB_DATABASE=bookstackapp
       - DB_USER=bookstack
-      - DB_PASS=userdbpasshere1
     volumes:
       - ./data/config:/config
     expose:
@@ -25,14 +25,13 @@ services:
 
   bookstack_db:
     image: yobasystems/alpine-mariadb:latest
-    #env_file: ../../secrets/firefly/fireflydb.env
+    env_file: ../../secrets/dndbookstack/db.env
     environment:
       - PUID=1000
       - PGID=1000
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=bookstackapp
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=userdbpasshere1
     volumes:
       - ./data/db:/var/lib/mysql
     networks:

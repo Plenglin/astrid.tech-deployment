@@ -6,15 +6,14 @@ services:
     restart: always
     cap_add:
       - SYS_ADMIN
+    env_file: ../../secrets/invoiceninja/ninja.env
     environment:
       - APP_DEBUG=true
       - APP_URL=https://localhost
-      - APP_KEY=base64:tfqRdMd0TLImGX020hev7xn2MKMaxlsSEDLLMywGBfM=
       - APP_CIPHER='AES-256-CBC'
       - MULTI_DB_ENABLED=false
       - DB_HOST1=db
       - DB_USERNAME1=ninja
-      - DB_PASSWORD1=ninja
       - DB_DATABASE1=ninja
       - PHANTOMJS_PDF_GENERATION=false
       - SNAPPDF_EXECUTABLE_PATH="/usr/bin/chromium-browser"
@@ -30,10 +29,10 @@ services:
   db:
     image: mysql:5
     restart: always
+    env_file: ../../secrets/invoiceninja/db.env
     environment:
       - MYSQL_ROOT_PASSWORD=ninjaAdm1nPassword
       - MYSQL_USER=ninja
-      - MYSQL_PASSWORD=ninja
       - MYSQL_DATABASE=ninja
     volumes:
       # - mysql-data:/var/lib/mysql:rw
