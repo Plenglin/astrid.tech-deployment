@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  server:
+    image: caddy:alpine
+    restart: always
+    volumes:
+      - ./config/:/etc/caddy/
+      - ./www:/var/www
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied
