@@ -25,13 +25,13 @@ services:
       - ./data/db:/var/lib/mysql
     networks:
       - net
-  #plaid_connector:
-  #  image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
-  #  restart: unless-stopped
-  #  depends_on:
-  #    - fireflyiii
-  #  volumes:
-  #    - ../../secrets/firefly/plaid.toml:/config/config.toml
+  plaid_connector:
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    restart: unless-stopped
+    depends_on:
+      - fireflyiii
+    volumes:
+      - ../../secrets/firefly/plaid.toml:/config/config.toml
 
 networks:
   net:
