@@ -26,6 +26,7 @@ services:
       - "443:443"
     networks:
       - invoiceninja
+      - proxied
 
   app:
     image: invoiceninja/invoiceninja:5
@@ -102,3 +103,9 @@ volumes:
 
 networks:
   invoiceninja:
+
+networks:
+  proxied:
+    external:
+      name: proxied
+

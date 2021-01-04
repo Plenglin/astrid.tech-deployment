@@ -22,3 +22,5 @@ volumes:
 
 networks:
   proxied:
+    external:
+      name: proxied
