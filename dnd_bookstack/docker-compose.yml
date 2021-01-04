@@ -1,38 +1,45 @@
-version: "2"
+version: "3.7"
 services:
   bookstack:
     image: ghcr.io/linuxserver/bookstack
-    container_name: bookstack
+    hostname: dndbookstack
     environment:
       - PUID=1000
       - PGID=1000
-      - APP_URL=https://dnd.astrid.tech
+      - APP_URL=http://localhost
       - DB_HOST=bookstack_db
-      - DB_USER=bookstack
-      - DB_PASS=<yourdbpass>
       - DB_DATABASE=bookstackapp
+      - DB_USER=bookstack
+      - DB_PASS=userdbpasshere1
     volumes:
-      - /path/to/data:/config
-    ports:
-      - 6875:80
+      - ./data/config:/config
+    expose:
+      - "80"
+      - "443"
     restart: unless-stopped
     depends_on:
       - bookstack_db
+    networks:
+      - proxied
+      - net
+
   bookstack_db:
-    image: ghcr.io/linuxserver/mariadb
-    container_name: bookstack_db
+    image: yobasystems/alpine-mariadb:latest
+    #env_file: ../../secrets/firefly/fireflydb.env
     environment:
       - PUID=1000
       - PGID=1000
-      - MYSQL_ROOT_PASSWORD=<yourdbpass>
-      - TZ=Europe/London
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=bookstackapp
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=<yourdbpass>
+      - MYSQL_PASSWORD=userdbpasshere1
     volumes:
-      - /path/to/data:/config
-    restart: unless-stopped
+      - ./data/db:/var/lib/mysql
+    networks:
+      - net
+
 networks:
+  net:
   proxied:
     external:
       name: proxied

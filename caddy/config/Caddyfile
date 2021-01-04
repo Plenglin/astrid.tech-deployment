@@ -1,8 +1,16 @@
+# DND Bookstack
 https://localhost {
+    reverse_proxy * dndbookstack
+    encode zstd gzip
+}
+
+# Firefly
+https://localhost:4003 {
     reverse_proxy * http://firefly:8080
     encode zstd gzip
 }
 
+# api.astrid.tech
 https://localhost:4001 {
     reverse_proxy /api/* http://astrid_tech:8001
     reverse_proxy /admin/* http://astrid_tech:8001
@@ -11,6 +19,7 @@ https://localhost:4001 {
     encode zstd gzip
 }
 
+# Invoiceninja
 #https://localhost:4002 {
 #    root * /var/www/invoiceninja/public
 #    php_fastcgi invoiceninja:9000
