@@ -12,7 +12,7 @@ services:
     depends_on:
       - fireflyiiidb
     networks:
-      - vpn
+      - proxied
       - net
   fireflyiiidb:
     image: yobasystems/alpine-mariadb:latest
