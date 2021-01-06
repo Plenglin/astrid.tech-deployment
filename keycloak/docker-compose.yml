@@ -13,6 +13,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
+    hostname: keycloak
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
