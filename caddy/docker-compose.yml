@@ -2,7 +2,11 @@ version: "3.7"
 
 services:
   server:
-    image: caddy:alpine
+    image: customized-caddy
+    build:
+      args:
+        - plugins="jwt,login"
+      target: github.com/abiosoft/caddy-docker.git
     restart: always
     volumes:
       - ./config/:/etc/caddy/
