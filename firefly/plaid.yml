@@ -1,0 +1,7 @@
+version: "3.3"
+
+services:
+  plaid_connector:
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    volumes:
+      - ../../secrets/firefly/plaid.toml:/config/config.toml
