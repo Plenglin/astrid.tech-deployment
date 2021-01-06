@@ -5,6 +5,7 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
+    env_file: ../../secrets/keycloak/db.env
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
@@ -14,6 +15,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     hostname: keycloak
+    env_file: ../../secrets/keycloak/keycloak.env
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: db
