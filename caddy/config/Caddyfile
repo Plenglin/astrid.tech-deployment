@@ -26,6 +26,12 @@ https://notes.astrid.tech {
     encode zstd gzip
 }
 
+# Keycloak
+https://iam.astrid.tech {
+    reverse_proxy * http://keycloak:8080
+    encode zstd gzip
+}
+
 # Invoiceninja
 #https://localhost:4002 {
 #    root * /var/www/invoiceninja/public

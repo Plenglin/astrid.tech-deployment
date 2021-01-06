@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+    networks:
+      - net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    expose:
+      - "8080"
+    depends_on:
+      - db
+    networks:
+      - proxied
+      - net
+
+networks:
+  net:
+  proxied:
+    external:
+      name: proxied
