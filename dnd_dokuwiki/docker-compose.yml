@@ -8,9 +8,16 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - ./config:/config
+      - ./data:/config
     expose:
       - "80"
     ports:
       - 8000:80
     restart: unless-stopped
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied

@@ -6,7 +6,7 @@ https://dndwiki.astrid.tech {
 
 # DND Dokuwiki
 https://wiki.dnd.astrid.tech {
-    reverse_proxy * dndbookstack
+    reverse_proxy * dnddokuwiki
     encode zstd gzip
 }
 
