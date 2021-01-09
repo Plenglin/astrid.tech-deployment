@@ -7,7 +7,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - APP_URL=https://dndwiki.astrid.tech
+      - APP_URL=https://wiki.dnd.astrid.tech
       - DB_HOST=bookstack_db
       - DB_DATABASE=bookstackapp
       - DB_USER=bookstack
