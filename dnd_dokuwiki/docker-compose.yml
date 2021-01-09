@@ -2,7 +2,7 @@ version: "3.7"
 services:
   dokuwiki:
     image: ghcr.io/linuxserver/dokuwiki
-    hostname: dokuwiki
+    hostname: dnddokuwiki
     environment:
       - PUID=1000
       - PGID=1000
