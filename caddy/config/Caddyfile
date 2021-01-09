@@ -1,4 +1,10 @@
 # DND Bookstack
+https://dndwiki.astrid.tech {
+    reverse_proxy * dndbookstack
+    encode zstd gzip
+}
+
+# DND Dokuwiki
 https://wiki.dnd.astrid.tech {
     reverse_proxy * dndbookstack
     encode zstd gzip
