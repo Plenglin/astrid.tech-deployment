@@ -4,6 +4,7 @@ services:
   fireflyiii:
     image: jc5x/firefly-iii:latest
     hostname: firefly
+    restart: unless-stopped
     volumes:
       - ../caddy/www/firefly/upload:/var/www/html/storage/upload
     env_file: ../../secrets/firefly/firefly.env
@@ -12,7 +13,7 @@ services:
     depends_on:
       - fireflyiiidb
     networks:
-      - proxied
+      - vpn
       - net
   fireflyiiidb:
     image: yobasystems/alpine-mariadb:latest
