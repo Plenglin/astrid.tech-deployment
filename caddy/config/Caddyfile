@@ -1,6 +1,12 @@
 # DND Bookstack
-https://dndwiki.astrid.tech {
+https://wiki.dnd.astrid.tech {
     reverse_proxy * dndbookstack
+    encode zstd gzip
+}
+
+# PlanarAlly
+https://dnd.astrid.tech {
+    reverse_proxy * http://planarally:8000
     encode zstd gzip
 }
 

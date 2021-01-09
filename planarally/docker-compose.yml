@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  planarally:
+    image: kruptein/planarally:latest
+    hostname: planarally
+    ports:
+      - 8000:8000
+    networks:
+      - proxied
+    volumes:
+      - ./data/data:/planarally/data/
+      - ./data/assets:/planarally/static/assets/
+
+networks:
+  proxied:
+    external:
+      name: proxied
