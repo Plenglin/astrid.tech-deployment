@@ -33,7 +33,7 @@ services:
       - "8001"
     volumes:
       - ./logs:/app/logs
-      - ./media:/app/media
+      - ../caddy/www/astrid_tech/media:/app/media/
       - ../caddy/www/astrid_tech/static:/app/staticfiles/
     restart: always
     networks:

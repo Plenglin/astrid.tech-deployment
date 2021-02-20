@@ -1,48 +1,41 @@
-# DND Bookstack
-https://dndwiki.astrid.tech {
-    reverse_proxy * dndbookstack
-    encode zstd gzip
-}
-
 # DND Dokuwiki
-https://wiki.dnd.astrid.tech {
-    reverse_proxy * dnddokuwiki
+wiki.dnd.astrid.tech {
+    reverse_proxy * dnd_dokuwiki_dokuwiki_1
     encode zstd gzip
 }
 
-# PlanarAlly
-https://dnd.astrid.tech {
-    reverse_proxy * http://planarally:8000
-    encode zstd gzip
-}
-
-# Firefly
-https://firefly.astrid.tech {
-    reverse_proxy * http://firefly:8080
-    encode zstd gzip
-}
+# # PlanarAlly
+# dnd.astrid.tech {
+#     reverse_proxy * http://planarally:8000
+#     encode zstd gzip
+# }
 
 # astrid.tech backend
-https://api.astrid.tech {
-    reverse_proxy /api/* http://astrid_tech:8001
-    reverse_proxy /admin/* http://astrid_tech:8001
-    reverse_proxy /assets/* http://astrid_tech:8001
-    root /static/* /var/www/astrid_tech/
-    file_server
+api.astrid.tech {
+    @django {
+        path /static/* /media/*
+    }
+
+    route {
+        file_server @django {
+            root /var/www/astrid_tech/
+        }
+    }
+    reverse_proxy * http://astrid_tech_api_1:8001
     encode zstd gzip
 }
 
 # Trilium
-https://notes.astrid.tech {
+notes.astrid.tech {
     reverse_proxy * http://trilium:8080
     encode zstd gzip
 }
 
-# Keycloak
-https://iam.astrid.tech {
-    reverse_proxy * http://keycloak:8080
-    encode zstd gzip
-}
+# # Keycloak
+# iam.astrid.tech {
+#     reverse_proxy * http://keycloak:8080
+#     encode zstd gzip
+# }
 
 # Invoiceninja
 #https://localhost:4002 {
